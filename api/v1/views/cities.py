@@ -10,6 +10,7 @@ from models.state import State
 from flask import abort, jsonify, request
 from models import storage
 
+
 @app_views.route("/states/<state_id>/cities",
                  strict_slashes=False)
 def state_cities_id(state_id):
@@ -25,6 +26,7 @@ def state_cities_id(state_id):
         all_cities.append(city.to_dict())
     return jsonify(all_cities)
 
+
 @app_views.route("/cities/<city_id>", strict_slashes=False)
 def city_id(city_id):
     """
@@ -35,6 +37,7 @@ def city_id(city_id):
         abort(404)
     city = city.to_dict()
     return jsonify(city)
+
 
 @app_views.route("/cities/<city_id>", methods=["DELETE"],
                  strict_slashes=False)
@@ -48,6 +51,7 @@ def delete_city_id(city_id):
     storage.delete(city)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/states/<state_id>/cities", methods=["POST"],
                  strict_slashes=False)
@@ -72,6 +76,7 @@ def post_city(state_id):
     storage.new(city)
     storage.save()
     return jsonify(city.to_dict()), 201
+
 
 @app_views.route("/cities/<city_id>", methods=["PUT"],
                  strict_slashes=False)

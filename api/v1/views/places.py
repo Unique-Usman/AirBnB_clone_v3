@@ -11,6 +11,7 @@ from models.user import User
 from flask import abort, jsonify, request
 from models import storage
 
+
 @app_views.route("/cities/<city_id>/places",
                  strict_slashes=False)
 def city_places_id(city_id):
@@ -26,6 +27,7 @@ def city_places_id(city_id):
         all_places.append(place.to_dict())
     return jsonify(all_places)
 
+
 @app_views.route("/places/<place_id>", strict_slashes=False)
 def place_id(place_id):
     """
@@ -36,6 +38,7 @@ def place_id(place_id):
         abort(404)
     place = place.to_dict()
     return jsonify(place)
+
 
 @app_views.route("/places/<place_id>", methods=["DELETE"],
                  strict_slashes=False)
@@ -49,6 +52,7 @@ def delete_place_id(place_id):
     storage.delete(place)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/cities/<city_id>/places", methods=["POST"],
                  strict_slashes=False)
@@ -80,6 +84,7 @@ def post_place(city_id):
     storage.new(place)
     storage.save()
     return jsonify(place.to_dict()), 201
+
 
 @app_views.route("/places/<place_id>", methods=["PUT"],
                  strict_slashes=False)

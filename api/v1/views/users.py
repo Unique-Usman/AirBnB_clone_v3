@@ -9,6 +9,7 @@ from models.user import User
 from flask import abort, jsonify, request
 from models import storage
 
+
 @app_views.route("/users", strict_slashes=False)
 def users():
     """
@@ -17,8 +18,9 @@ def users():
     all_users = storage.all(User)
     all_user_lists = []
     for user in all_users.values():
-       all_user_lists.append(user.to_dict()) 
+        all_user_lists.append(user.to_dict())
     return jsonify(all_user_lists)
+
 
 @app_views.route("/users/<user_id>", strict_slashes=False)
 def user_id(user_id):
@@ -30,6 +32,7 @@ def user_id(user_id):
         abort(404)
     user = user.to_dict()
     return jsonify(user)
+
 
 @app_views.route("/users/<user_id>",
                  methods=["DELETE"],
@@ -44,6 +47,7 @@ def delete_user_id(user_id):
     storage.delete(user)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/users/",
                  methods=["POST"],
@@ -67,6 +71,7 @@ def post_users():
     storage.new(user)
     storage.save()
     return jsonify(user.to_dict()), 201
+
 
 @app_views.route("/users/<user_id>",
                  methods=["PUT"],

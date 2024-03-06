@@ -9,6 +9,7 @@ from models.amenity import Amenity
 from flask import abort, jsonify, request
 from models import storage
 
+
 @app_views.route("/amenities", strict_slashes=False)
 def amenities():
     """
@@ -17,8 +18,9 @@ def amenities():
     all_amenities = storage.all(Amenity)
     all_amenity_lists = []
     for amenity in all_amenities.values():
-       all_amenity_lists.append(amenity.to_dict()) 
+        all_amenity_lists.append(amenity.to_dict())
     return jsonify(all_amenity_lists)
+
 
 @app_views.route("/amenities/<amenity_id>", strict_slashes=False)
 def amenity_id(amenity_id):
@@ -30,6 +32,7 @@ def amenity_id(amenity_id):
         abort(404)
     amenity = amenity.to_dict()
     return jsonify(amenity)
+
 
 @app_views.route("/amenities/<amenity_id>",
                  methods=["DELETE"],
@@ -44,6 +47,7 @@ def delete_amenity_id(amenity_id):
     storage.delete(amenity)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/amenities/",
                  methods=["POST"],
@@ -65,6 +69,7 @@ def post_amenities():
     storage.new(amenity)
     storage.save()
     return jsonify(amenity.to_dict()), 201
+
 
 @app_views.route("/amenities/<amenity_id>",
                  methods=["PUT"],
