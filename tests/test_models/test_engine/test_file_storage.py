@@ -125,4 +125,4 @@ class TestFileStorageMethods(unittest.TestCase):
         for method_name in method_names:
             with self.subTest(method_name=method_name):
                 self.assertTrue(hasattr(class_name, method_name),
-                                f"Method '{method_name}' does not exist")
+                                f"Method {method_name} does not exist")
