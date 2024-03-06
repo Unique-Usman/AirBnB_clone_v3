@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Manage the status and the stats of the app
 """

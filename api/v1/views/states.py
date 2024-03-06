@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Handles all the default RESTFul API actions for the app
 """
