@@ -117,7 +117,7 @@ class TestFileStorage(unittest.TestCase):
 
 class TestFileStorageMethods(unittest.TestCase):
     """Test that certain methods are in the DB storage module"""
-    @unittest.skipIf(models.storage_t == 'db', "not not testing file storage")
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_methods_exist(self):
         """Test for existance of methods"""
         class_name = file_storage.FileStorage
@@ -126,3 +126,23 @@ class TestFileStorageMethods(unittest.TestCase):
             with self.subTest(method_name=method_name):
                 self.assertTrue(hasattr(class_name, method_name),
                                 "Method does not exist")
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Tests the get() method"""
+        storage = FileStorage()
+        new_state = State("Rivers")
+        new_state.save()
+        self.assertIs(new_state, storage.get(State, new_state.id))
+        self.assertIs(storage.get(State, "wrong id"), None)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Tests the count() method"""
+        storage = FileStorage()
+        initial_count = storage.count(State)
+        new_state = State("Rivers")
+        new_state.save()
+        self.assertEqual(storage.count(State), initial_count + 1)
+        self.assertEqual(len(storage.all()), storage.count())
+        self.assertEqual(len(storage.all(State)), storage.count(State))
