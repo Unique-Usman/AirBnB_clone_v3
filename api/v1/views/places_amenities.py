@@ -16,7 +16,7 @@ from models import storage
 
 @app_views.route("/places/<place_id>/amenities",
                  strict_slashes=False)
-def place_amenities_id(place_id):
+def place_amenities_id_place_id(place_id):
     """
     Returns the list of amenity of Place with id place_id
     """
@@ -32,7 +32,7 @@ def place_amenities_id(place_id):
 
 @app_views.route("places/place_id/amenities/<amenity_id>", methods=["DELETE"],
                  strict_slashes=False)
-def delete_amenity_id(place_id, amenity_id):
+def delete_amenity_id_place_id(place_id, amenity_id):
     """
     Delete Amenity with amenity_id to Place of Place_id
     """
@@ -51,7 +51,7 @@ def delete_amenity_id(place_id, amenity_id):
 
 @app_views.route("/places/<place_id>/amenities/amenity_id", methods=["POST"],
                  strict_slashes=False)
-def post_amenity(place_id, amenity_id):
+def post_amenity_place(place_id, amenity_id):
     """
     Create a new amenity for a Place
     """
