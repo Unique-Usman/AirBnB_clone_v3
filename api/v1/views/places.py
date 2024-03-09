@@ -109,7 +109,8 @@ def put_place_id(place_id):
     storage.save()
     return jsonify(place.to_dict()), 200
 
-@app_views.route('/places_search', methods=['POST'])
+@app_views.route('/places_search', methods=['POST'],
+                 strict_slashes=False)
 def places_search():
     """
         places route to handle http method for request to search places
