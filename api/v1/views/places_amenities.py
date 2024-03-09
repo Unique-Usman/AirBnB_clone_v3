@@ -42,7 +42,7 @@ def delete_amenity_id_place_id(place_id, amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
-    if amenity.place_id != place_id:
+    if amenity.place_id != place.id:
         abort(404)
     storage.delete(amenity)
     storage.save()
