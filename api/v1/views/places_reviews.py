@@ -13,6 +13,7 @@ from models.review import Review
 from flask import abort, jsonify, request
 from models import storage
 
+
 @app_views.route("/places/<place_id>/reviews",
                  strict_slashes=False)
 def place_reviews_id(place_id):
@@ -28,6 +29,7 @@ def place_reviews_id(place_id):
         all_reviews.append(review.to_dict())
     return jsonify(all_reviews)
 
+
 @app_views.route("/reviews/<review_id>", strict_slashes=False)
 def review_id(review_id):
     """
@@ -38,6 +40,7 @@ def review_id(review_id):
         abort(404)
     review = review.to_dict()
     return jsonify(review)
+
 
 @app_views.route("/reviews/<review_id>", methods=["DELETE"],
                  strict_slashes=False)
@@ -51,6 +54,7 @@ def delete_review_id(review_id):
     storage.delete(review)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route("/places/<place_id>/reviews", methods=["POST"],
                  strict_slashes=False)
@@ -83,6 +87,7 @@ def post_review(place_id):
     storage.save()
     return jsonify(review.to_dict()), 201
 
+
 @app_views.route("/reviews/<review_id>", methods=["PUT"],
                  strict_slashes=False)
 def put_review_id(review_id):
@@ -97,7 +102,8 @@ def put_review_id(review_id):
         return jsonify({"message": "Not a JSON"}), 400
     content = request.get_json()
     for key, value in content.items():
-        if key not in ["id", "created_at", "updated_at", "place_id", "user_id"]:
+        if key not in ["id", "created_at", "updated_at", "place_id",
+                       "user_id"]:
             setattr(review, key, value)
     storage.save()
     return jsonify(review.to_dict()), 200

@@ -84,9 +84,13 @@ class DBStorage:
         Returns:
             object with matching id
         """
-        matching_obj = self.__session.query(cls).filter(cls.id == id).first()
-        if matching_obj:
-            return matching_obj
+        if type(cls) is str:
+            cls = classes.get(cls)
+        if cls is not None:
+            matching_obj = self.__session.query(cls).filter(
+                           cls.id == id).first()
+            if matching_obj:
+                return matching_obj
         return None
 
     def count(self, cls=None):

@@ -98,4 +98,22 @@ class TestDBStorageMethods(unittest.TestCase):
         for method_name in method_names:
             with self.subTest(method_name=method_name):
                 self.assertTrue(hasattr(class_name, method_name),
-                                f"Method '{method_name}' does not exist")
+                                "Method does not exist")
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Tests the get() method"""
+        new_state = State(name="Lagos")
+        new_state.save()
+        state_id = new_state.id
+        self.assertIs(new_state, models.storage.get(State, state_id))
+        self.assertIs(None, model.storage.get(State, "wrong_id"))
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count(self):
+        """Tests the count() method"""
+        initial_count = model.storage.count(State)
+        new_state = State(name="Delta")
+        new_state.save()
+        self.assertEqual(model.storage.count(State), initial_count + 1)
+        self.assertEqual(len(model.storage.all()), model.storage.count())
